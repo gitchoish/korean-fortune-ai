@@ -1,0 +1,7 @@
+# Cloudflare Pages Redirects Configuration
+
+# API Routes
+/api/ai-analysis /api/ai-analysis.js 200
+
+# SPA Fallback
+/* /index.html 200

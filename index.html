@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🔮 AI 사주풀이 - 현대적 사주 분석 서비스</title>
+  <meta name="description" content="AI가 분석하는 정확한 사주풀이! 생년월일과 시간을 입력하여 개인 맞춤 사주 분석을 받아보세요."/>
+  <meta name="keywords" content="AI사주, 사주풀이, 운세, 십이지, 사주분석, 인공지능"/>
+  <meta name="author" content="AI 사주풀이 앱"/>
+  <meta property="og:title" content="🔮 AI 사주풀이 - 현대적 사주 분석 서비스"/>
+  <meta property="og:description" content="AI가 분석하는 정확한 사주풀이! 개인 맞춤 사주 분석을 받아보세요."/>
+  <meta property="og:type" content="website"/>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>">
+  <link rel="stylesheet" href="style.css?v=20250625-1" />
+  <script src="saju-functions.js?v=20250625-1" defer></script>
+  <script src="advanced-saju-engine.js?v=20250630-2" defer></script>
+  <script src="detailed-analysis-generator.js?v=20250630-2" defer></script>
+  <script src="free-ai-client.js?v=20250630-2" defer></script>
+  <script src="script.js?v=20250630-2" defer></script>
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="container">
+      <h1>🔮 AI 사주풀이</h1>
+      <p>인공지능이 분석하는 정확한 개인 맞춤 사주 해석</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- 메인 슬라이더 -->
+    <div class="main-slider-container">
+      <div class="main-slider-wrapper">
+        <div class="main-slide"><img src="assets/images/slide1.png" class="slide-img" alt="사주풀이 이미지 1" /></div>
+        <div class="main-slide"><img src="assets/images/slide2.png" class="slide-img" alt="사주풀이 이미지 2" /></div>
+        <div class="main-slide"><img src="assets/images/slide3.png" class="slide-img" alt="사주풀이 이미지 3" /></div>
+      </div>
+      <button id="prevSlide" aria-label="이전 슬라이드">‹</button>
+      <button id="nextSlide" aria-label="다음 슬라이드">›</button>
+    </div>
+
+    <!-- 사주 입력 폼 -->
+    <div class="form-container">
+      <h2>🎯 사주 정보 입력</h2>
+      <p>정확한 분석을 위해 생년월일과 시간을 입력해주세요</p>
+      
+      <form id="sajuForm">
+        <div class="form-group">
+          <label for="gender">👤 성별 *</label>
+          <div class="gender-selection">
+            <label class="radio-label">
+              <input type="radio" id="male" name="gender" value="male" required>
+              <span class="radio-custom">👨 남성</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" id="female" name="gender" value="female" required>
+              <span class="radio-custom">👩 여성</span>
+            </label>
+          </div>
+          <small class="form-help">성별에 따라 사주 해석이 달라집니다</small>
+        </div>
+
+        <div class="form-group">
+          <label for="birthDate">📅 생년월일</label>
+          <input type="date" id="birthDate" name="birthDate" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="birthTime">⏰ 출생 시간</label>
+          <input type="time" id="birthTime" name="birthTime">
+          <small>시간을 모르시면 비워두세요</small>
+        </div>
+        
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="timeUnknown"> 출생 시간을 모릅니다
+          </label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">
+          🔮 AI 사주 분석 시작하기
+        </button>
+      </form>
+    </div>
+
+    <!-- 결과 표시 영역 (초기에는 숨김) -->
+    <div id="resultContainer" class="result-container hidden">
+      <h2>🔮 사주 분석 결과</h2>
+      
+      <!-- 분석 메뉴 버튼들 -->
+      <div class="result-buttons">
+        <button id="showZodiac" class="result-btn active">
+          🐭 띠 분석
+          <small>십이지 동물과 특징</small>
+        </button>
+        <button id="showFiveElements" class="result-btn">
+          🌟 오행 분석
+          <small>오행과 사주 해석</small>
+        </button>
+        <button id="showCalendar" class="result-btn">
+          📅 만세력
+          <small>사주 기본 정보</small>
+        </button>
+        <button id="showSaju" class="result-btn">
+          🤖 AI 사주풀이
+          <small>인공지능 상세 분석</small>
+        </button>
+      </div>
+
+      <!-- 결과 섹션들 -->
+      <div id="zodiacSection" class="result-section">
+        <h3>🐭 띠 분석</h3>
+        <div id="zodiacResult"></div>
+      </div>
+
+      <div id="fiveElementsSection" class="result-section hidden">
+        <h3>🌟 오행 분석</h3>
+        <div id="fiveElementsResult"></div>
+      </div>
+
+      <div id="calendarSection" class="result-section hidden">
+        <h3>📅 만세력</h3>
+        <div id="calendarResult"></div>
+      </div>
+
+      <div id="sajuSection" class="result-section hidden">
+        <h3>🤖 AI 사주풀이</h3>
+        <div id="ai-loading"></div>
+        <div id="sajuResult"></div>
+      </div>
+    </div>
+
+    <!-- 서비스 소개 -->
+    <div class="intro-section">
+      <h2>✨ AI 사주풀이 서비스 특징</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>AI 분석</h3>
+          <p>Gemini AI가 개인별 맞춤 사주를 상세히 분석합니다</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>정확한 해석</h3>
+          <p>전통 사주학과 현대적 해석을 결합한 정확한 분석</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>모바일 최적화</h3>
+          <p>언제 어디서나 편리하게 사주를 확인할 수 있습니다</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>개인정보 보호</h3>
+          <p>입력한 정보는 분석 후 즉시 삭제됩니다</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 AI 사주풀이. 모든 권리 보유.</p>
+      <p>본 서비스는 참고용이며, 중요한 결정은 전문가와 상담하세요.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
