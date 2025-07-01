@@ -8,6 +8,8 @@ name = "ai-saju-free"
 
 [env.production.vars]
 ENVIRONMENT = "production"
+# GEMINI_API_KEY는 Cloudflare Pages 대시보드에서 환경 변수로 설정해야 합니다.
+# 보안상 이 파일에 직접 입력하지 마세요.
 
 # Functions configuration
 [[env.production.services]]

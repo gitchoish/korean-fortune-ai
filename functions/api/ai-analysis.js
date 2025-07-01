@@ -275,8 +275,14 @@ async function analyzeWithGeminiAI(birthData, env) {
 
 // Gemini API 호출 함수 (Cloudflare Pages 환경)
 async function callGeminiAPI(birthData, fourPillars, fiveElementAnalysis, usefulGodAnalysis, tenGodsAnalysis, env) {
-    const GEMINI_API_KEY = env?.GEMINI_API_KEY || 'AIzaSyCwhypGNz8ExfrzrpJbcjsZiG_ZORTCAQ4';
+    const GEMINI_API_KEY = env?.GEMINI_API_KEY;
     const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+    
+    // API 키 확인
+    if (!GEMINI_API_KEY) {
+        console.error('❌ GEMINI_API_KEY 환경 변수가 설정되지 않았습니다.');
+        throw new Error('API 키가 설정되지 않았습니다.');
+    }
     
     // 만세력 정보를 구조화된 프롬프트로 생성 (성별 포함)
     const prompt = generateGeminiPrompt(birthData, fourPillars, fiveElementAnalysis, usefulGodAnalysis, tenGodsAnalysis);

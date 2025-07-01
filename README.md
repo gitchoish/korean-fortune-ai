@@ -19,12 +19,50 @@
 - 직관적인 사용자 인터페이스
 - 모바일 최적화
 
+## 🚀 **설치 및 설정**
+
+### 1. 프로젝트 클론
+```bash
+git clone <repository-url>
+cd korean-fortune-ai
+```
+
+### 2. 환경 변수 설정
+```bash
+# .env.example을 복사하여 .env 파일 생성
+cp .env.example .env
+
+# .env 파일을 편집하여 실제 API 키 입력
+# GEMINI_API_KEY=your_actual_api_key_here
+```
+
+### 3. Google Gemini API 키 발급
+1. [Google AI Studio](https://makersuite.google.com/app/apikey) 방문
+2. API 키 생성
+3. `.env` 파일에 키 입력
+
+### 4. 로컬 개발 서버 실행
+```bash
+# Python 서버 사용
+python3 -m http.server 8000
+
+# 또는 Node.js 서버 사용
+npm start
+```
+
 ## 🌐 **배포**
 
-### Cloudflare Pages
-- 완전 무료 호스팅
-- 전 세계 CDN 지원
-- 서버리스 함수 지원
+### Cloudflare Pages 배포
+1. Cloudflare Pages에 프로젝트 연결
+2. 환경 변수 설정:
+   - `GEMINI_API_KEY`: Google Gemini API 키
+   - `ENVIRONMENT`: production
+3. 자동 배포 완료
+
+### 환경 변수 설정 (중요!)
+- **로컬 개발**: `.env` 파일 사용
+- **Cloudflare Pages**: 대시보드에서 환경 변수 설정
+- **보안**: API 키를 소스코드에 직접 입력하지 마세요!
 
 ## 💰 **비용**
 - **호스팅**: 완전 무료 (Cloudflare Pages)
@@ -74,7 +112,9 @@ korean-fortune-ai/
 │   └── images/                   # 이미지 파일들
 ├── _headers                      # Cloudflare 헤더 설정
 ├── _redirects                    # 리다이렉트 설정
-└── wrangler.toml                # Cloudflare 설정
+├── wrangler.toml                # Cloudflare 설정
+├── .env.example                 # 환경 변수 예시
+└── .gitignore                   # Git 제외 파일
 ```
 
 ## 📈 **사용법**
@@ -83,6 +123,25 @@ korean-fortune-ai/
 2. 생년월일시 정확히 입력
 3. "AI 사주 분석 시작하기" 클릭
 4. 3-5초 후 성별 맞춤 전문가 수준 분석 확인
+
+## 🔒 **보안 주의사항**
+
+- API 키를 소스코드에 직접 입력하지 마세요
+- `.env` 파일은 Git에 커밋하지 마세요
+- 환경 변수를 통해 안전하게 관리하세요
+
+## 🐛 **문제 해결**
+
+### API 키 관련 오류
+```
+❌ GEMINI_API_KEY 환경 변수가 설정되지 않았습니다.
+```
+- `.env` 파일에 올바른 API 키가 설정되었는지 확인
+- Cloudflare Pages 환경 변수 설정 확인
+
+### 로컬 서버 실행 오류
+- Python 3가 설치되어 있는지 확인
+- 포트 8000이 사용 중인지 확인
 
 ---
 
