@@ -1,0 +1,24 @@
+{
+  "name": "ai-saju-free",
+  "version": "1.0.0",
+  "description": "🔮 무료 AI 사주풀이 웹서비스 - Vercel + Hugging Face",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'",
+    "start": "python3 -m http.server 9000"
+  },
+  "keywords": [
+    "ai",
+    "saju",
+    "fortune",
+    "vercel",
+    "huggingface",
+    "free"
+  ],
+  "author": "AI Saju Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
