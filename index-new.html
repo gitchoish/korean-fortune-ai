@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🔮 사주 프롬프트 생성기 - AI 사주 분석용 최적화 프롬프트</title>
+  <meta name="description" content="생년월일시를 입력하면 ChatGPT, Claude 등 AI에 최적화된 사주 분석 프롬프트를 생성해드립니다."/>
+  <meta name="keywords" content="사주프롬프트, ChatGPT사주, AI사주, 사주분석, 프롬프트생성기"/>
+  <meta name="author" content="사주 프롬프트 생성기"/>
+  <meta property="og:title" content="🔮 사주 프롬프트 생성기"/>
+  <meta property="og:description" content="AI에 최적화된 사주 분석 프롬프트를 자동 생성합니다."/>
+  <meta property="og:type" content="website"/>
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>">
+  <link rel="stylesheet" href="style-new.css" />
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="container">
+      <h1>🔮 사주 프롬프트 생성기</h1>
+      <p>ChatGPT, Claude 등 AI에 최적화된 사주 분석 프롬프트를 자동 생성</p>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- 서비스 소개 -->
+    <div class="intro-section">
+      <h2>🎯 어떤 서비스인가요?</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <h3>프롬프트 자동 생성</h3>
+          <p>생년월일시만 입력하면 만세력과 함께 AI용 최적화 프롬프트를 생성</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>모든 AI 호환</h3>
+          <p>ChatGPT, Claude, Gemini 등 어떤 AI에도 바로 복사해서 사용 가능</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>전문가 수준 분석</h3>
+          <p>30년 경력 사주 전문가 수준의 상세한 분석을 유도하는 프롬프트</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 사주 입력 폼 -->
+    <div class="form-container">
+      <h2>📅 사주 정보 입력</h2>
+      <p>정확한 만세력 계산을 위해 모든 정보를 정확히 입력해주세요</p>
+      
+      <form id="sajuForm">
+        
+        <!-- 성별 선택 -->
+        <div class="form-group">
+          <label class="form-label">👤 성별 선택 *</label>
+          <div class="gender-selection">
+            <label class="radio-label">
+              <input type="radio" name="gender" value="male" required>
+              <span class="radio-custom">👨 남성</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="gender" value="female" required>
+              <span class="radio-custom">👩 여성</span>
+            </label>
+          </div>
+          <div id="genderMessage" class="help-message"></div>
+        </div>
+
+        <!-- 양력/음력 선택 -->
+        <div class="form-group">
+          <label class="form-label">📅 생년월일 구분 *</label>
+          <div class="calendar-selection">
+            <label class="radio-label">
+              <input type="radio" name="calendarType" value="solar" checked required>
+              <span class="radio-custom">☀️ 양력</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="calendarType" value="lunar" required>
+              <span class="radio-custom">🌙 음력</span>
+            </label>
+          </div>
+          <div class="help-message">대부분의 경우 양력을 선택하세요. 음력은 전통적인 한국 달력입니다.</div>
+        </div>
+
+        <!-- 생년월일 입력 -->
+        <div class="form-group">
+          <label for="birthDate" class="form-label">📅 생년월일 *</label>
+          <input type="date" id="birthDate" name="birthDate" required class="form-input">
+          <div class="help-message">정확한 생년월일을 입력해주세요</div>
+        </div>
+
+        <!-- 출생시간 입력 -->
+        <div class="form-group">
+          <label for="birthTime" class="form-label">⏰ 출생시간 *</label>
+          <input type="time" id="birthTime" name="birthTime" required class="form-input">
+          <div class="help-message">정확한 출생시간을 입력해주세요 (24시간 형식)</div>
+        </div>
+
+        <!-- 출생지 입력 (선택사항) -->
+        <div class="form-group">
+          <label for="birthPlace" class="form-label">📍 출생지 (선택사항)</label>
+          <input type="text" id="birthPlace" name="birthPlace" placeholder="예: 서울특별시, 부산광역시" class="form-input">
+          <div class="help-message">더 정확한 분석을 위해 출생지를 입력하세요</div>
+        </div>
+
+        <!-- 분석 목적 선택 -->
+        <div class="form-group">
+          <label class="form-label">🎯 분석 목적 (선택사항)</label>
+          <div class="purpose-selection">
+            <label class="checkbox-label">
+              <input type="checkbox" name="purpose" value="general">
+              <span class="checkbox-custom">전반적 운세</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="purpose" value="love">
+              <span class="checkbox-custom">연애/결혼운</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="purpose" value="career">
+              <span class="checkbox-custom">직업/사업운</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="purpose" value="wealth">
+              <span class="checkbox-custom">재물운</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="purpose" value="health">
+              <span class="checkbox-custom">건강운</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="purpose" value="relationship">
+              <span class="checkbox-custom">인간관계</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 생성 버튼 -->
+        <button type="submit" class="generate-btn">
+          🚀 AI용 사주 프롬프트 생성하기
+        </button>
+      </form>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div id="resultSection" class="result-section" style="display: none;">
+      <h2>📋 생성된 프롬프트</h2>
+      
+      <!-- 만세력 정보 -->
+      <div class="manseryeok-section">
+        <h3>📊 계산된 만세력</h3>
+        <div id="manseryeokResult" class="manseryeok-result"></div>
+      </div>
+
+      <!-- 생성된 프롬프트 -->
+      <div class="prompt-section">
+        <h3>🤖 AI용 최적화 프롬프트</h3>
+        <div class="prompt-container">
+          <textarea id="generatedPrompt" class="prompt-textarea" readonly></textarea>
+          <button id="copyPrompt" class="copy-btn">📋 프롬프트 복사</button>
+        </div>
+      </div>
+
+      <!-- 사용 가이드 -->
+      <div class="usage-guide">
+        <h3>📖 사용 방법</h3>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h4>프롬프트 복사</h4>
+              <p>위의 "프롬프트 복사" 버튼을 클릭하여 클립보드에 복사</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h4>AI 서비스 접속</h4>
+              <p>ChatGPT, Claude, Gemini 등 원하는 AI 서비스에 접속</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h4>프롬프트 붙여넣기</h4>
+              <p>복사한 프롬프트를 AI 채팅창에 붙여넣고 전송</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h4>전문가 수준 분석 확인</h4>
+              <p>AI가 30년 경력 전문가 수준의 상세한 사주 분석을 제공</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 추천 AI 서비스 -->
+      <div class="ai-services">
+        <h3>🤖 추천 AI 서비스</h3>
+        <div class="service-grid">
+          <a href="https://chat.openai.com" target="_blank" class="service-card">
+            <div class="service-icon">🤖</div>
+            <h4>ChatGPT</h4>
+            <p>OpenAI의 대화형 AI</p>
+          </a>
+          <a href="https://claude.ai" target="_blank" class="service-card">
+            <div class="service-icon">🧠</div>
+            <h4>Claude</h4>
+            <p>Anthropic의 AI 어시스턴트</p>
+          </a>
+          <a href="https://gemini.google.com" target="_blank" class="service-card">
+            <div class="service-icon">💎</div>
+            <h4>Gemini</h4>
+            <p>Google의 AI 모델</p>
+          </a>
+          <a href="https://www.perplexity.ai" target="_blank" class="service-card">
+            <div class="service-icon">🔍</div>
+            <h4>Perplexity</h4>
+            <p>검색 기반 AI</p>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 푸터 -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 사주 프롬프트 생성기. AI 시대의 새로운 사주 분석 방법.</p>
+    </div>
+  </footer>
+
+  <script src="saju-functions.js"></script>
+  <script src="prompt-generator.js"></script>
+</body>
+</html>
